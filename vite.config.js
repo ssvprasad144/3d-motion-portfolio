@@ -3,5 +3,6 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/3d-motion-portfolio/'
+  // GitHub Pages serves from /3d-motion-portfolio/, while Render serves from /
+  base: process.env.GITHUB_ACTIONS ? '/3d-motion-portfolio/' : '/'
 })
