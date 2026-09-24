@@ -2,9 +2,10 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
 import { Float, Environment, MeshTransmissionMaterial, OrbitControls } from "@react-three/drei";
-import { ArrowDown, ArrowUpRight, Github, Mail, Menu, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Mail, Menu, X } from "lucide-react";
 import "./styles.css";
 
+function GithubMark({size=20}){return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.3 3.8 5 5 0 0 0 19.2.2S18 .0 15 2.1a13.4 13.4 0 0 0-6 0C6 .0 4.8.2 4.8.2a5 5 0 0 0-.1 3.6A5.4 5.4 0 0 0 3.3 7.5c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 9 18v4"/><path d="M9 18c-4.5 2-5-2-7-2"/></svg>}
 function Orb(){
   return <Float speed={1.6} rotationIntensity={0.7} floatIntensity={1.2}>
     <mesh rotation={[0.2,0.4,0]}>
@@ -43,7 +44,7 @@ function App(){
    {projects.map(p=><article className="project" key={p.n}><div className="num">{p.n}</div><div><p className="tag">{p.tag}</p><h2>{p.title}</h2><p className="desc">{p.text}</p></div><ArrowUpRight className="arrow"/></article>)}
   </section>
   <section id="about" className="about section"><p className="eyebrow">A LITTLE ABOUT ME</p><h2>Frontend meets<br/><em>imagination.</em></h2><p>From scalable Django systems to expressive interfaces, I like turning ambitious ideas into products people can feel.</p></section>
-  <section id="contact" className="contact section"><p className="eyebrow">HAVE AN IDEA?</p><h2>Let's make it<br/><em>move.</em></h2><div className="contact-row"><a className="email" href="mailto:ssvprasad144@gmail.com">ssvprasad144@gmail.com <ArrowUpRight/></a><a href="https://github.com/ssvprasad144" target="_blank" rel="noreferrer"><Github/></a><a href="mailto:ssvprasad144@gmail.com"><Mail/></a></div></section>
+  <section id="contact" className="contact section"><p className="eyebrow">HAVE AN IDEA?</p><h2>Let's make it<br/><em>move.</em></h2><div className="contact-row"><a className="email" href="mailto:ssvprasad144@gmail.com">ssvprasad144@gmail.com <ArrowUpRight/></a><a href="https://github.com/ssvprasad144" target="_blank" rel="noreferrer"><GithubMark/></a><a href="mailto:ssvprasad144@gmail.com"><Mail/></a></div></section>
   <footer><span>© 2026 SSV</span><span>CRAFTED WITH CODE + CURIOSITY</span></footer>
  </main>
 }
