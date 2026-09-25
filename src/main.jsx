@@ -95,7 +95,7 @@ function App() {
         <div className={open ? "links open" : "links"}>
           <a href="#work" onClick={() => setOpen(false)}>Work</a>
           <a href="#services" onClick={() => setOpen(false)}>Services</a>
-          <a href="#about" onClick={() => setOpen(false)}>About</a>
+          <a href="#about" onClick={() => setOpen(false)}>About</a><a href="#resume" onClick={() => setOpen(false)}>Resume</a>
           <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
         </div>
         <a className="nav-cta" href="#contact">Let's talk <ArrowUpRight size={14} /></a>
@@ -142,7 +142,7 @@ function App() {
       <section id="work" className="section work">
         <div className="section-head">
           <div><p className="eyebrow">SELECTED WORK</p><h2>Projects with <em>purpose.</em></h2></div>
-          <p className="count">04 PROJECTS</p>
+          <p className="count">04 PROJECTS · 01 CASE STUDY</p>
         </div>
         <div className="project-grid">
           {projects.map((p) => (
@@ -161,6 +161,25 @@ function App() {
         </div>
       </section>
 
+      <section className="case-study section" id="case-study">
+        <div className="section-head"><div><p className="eyebrow">AUTOMATION CASE STUDY</p><h2>From process to <em>pipeline.</em></h2></div></div>
+        <div className="case-grid">
+          <div className="case-copy">
+            <p><strong>Business problem:</strong> repetitive operational processes often involve collecting information, applying logic, calling services and recording outcomes across disconnected tools.</p>
+            <p><strong>What I built:</strong> a sandboxed AI Business Automation Dashboard that models workflows, executes ordered steps, records results and exposes activity for monitoring.</p>
+            <div className="case-flow">
+              <span>Business Process</span><b className="case-arrow">→</b><span>Workflow Builder</span><b className="case-arrow">→</b><span>Execution Engine</span><b className="case-arrow">→</b><span>AI / APIs</span><b className="case-arrow">→</b><span>Logs</span>
+            </div>
+          </div>
+          <div className="case-card">
+            <p className="eyebrow">ENGINEERING STACK</p>
+            <h3>Django + PostgreSQL + React + OpenAI</h3>
+            <p>Includes workflow definitions, ordered action steps, execution history, activity monitoring and safe demonstrations for lead qualification, support, extraction and message generation.</p>
+            <a href="https://ai-business-automation-frontend.onrender.com" target="_blank" rel="noreferrer">Open Demo <ArrowUpRight size={14} /></a>
+          </div>
+        </div>
+      </section>
+
       <section id="services" className="services section">
         <div className="section-head"><div><p className="eyebrow">WHAT I CAN BUILD</p><h2>From idea to <em>launch.</em></h2></div></div>
         <div className="service-grid">
@@ -171,6 +190,8 @@ function App() {
         </div>
       </section>
 
+      <section className="tech section"><p className="eyebrow">TECHNOLOGY</p><div className="tech-list">{["Python","Django","REST APIs","React","Vite","PostgreSQL","OpenAI","Three.js","React Three Fiber","GitHub","Render","Linux"].map((t)=><span key={t}>{t}</span>)}</div></section>
+
       <section id="about" className="about section">
         <div><p className="eyebrow">ABOUT SSVPRASAD</p><h2>Code with a <em>creative edge.</em></h2></div>
         <div className="about-copy">
@@ -179,6 +200,8 @@ function App() {
           <div className="mini-stats"><div><strong>4</strong><span>featured builds</span></div><div><strong>AI</strong><span>product focus</span></div><div><strong>AUTO</strong><span>workflow focus</span></div></div>
         </div>
       </section>
+
+      <section id="resume" className="section" style={{background:"#f7f6ff",paddingBottom:"70px"}}><div className="section-head"><div><p className="eyebrow">ENGINEERING PROFILE</p><h2>Built for <em>real work.</em></h2></div></div><div className="case-grid"><div className="case-copy"><p>My focus spans data structures and algorithms, backend architecture, database design, API development, AI applications, business automation and deployment.</p><p>For recruiters and clients, the portfolio projects above show the progression from full-stack applications to AI-powered systems and automation infrastructure.</p></div><div className="case-card" style={{background:"#eeecf8",color:"#17151f",boxShadow:"none"}}><p className="eyebrow">NEXT STEP</p><h3>Want the full technical profile?</h3><p style={{color:"#676170"}}>View the code, architecture and iterative development history on GitHub.</p><a href="https://github.com/ssvprasad144" target="_blank" rel="noreferrer">View GitHub <ArrowUpRight size={14} /></a></div></div></section>
 
       <section id="contact" className="contact section">
         <p className="eyebrow">HAVE A PROJECT?</p>
