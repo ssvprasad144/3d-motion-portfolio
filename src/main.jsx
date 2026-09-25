@@ -81,7 +81,7 @@ function App() {
       <div className="ambient ambient-two" />
 
       <nav className="nav">
-        <a className="brand" href="#top">SSV<span>.</span></a>
+        <a className="brand" href="#top">SSVPrasad<span>.</span></a>
         <div className={open ? "links open" : "links"}>
           <a href="#work" onClick={() => setOpen(false)}>Work</a>
           <a href="#services" onClick={() => setOpen(false)}>Services</a>
@@ -100,7 +100,7 @@ function App() {
           <p className="eyebrow">FULL-STACK · AI · CREATIVE WEB</p>
           <h1>I build digital <em>experiences</em> that move.</h1>
           <p className="lede">
-            I'm SSV — a developer focused on full-stack products, AI integrations and immersive web experiences.
+            I'm SSVPrasad — a developer focused on full-stack products, AI integrations and immersive web experiences.
             I turn ideas into fast, polished and deployable software.
           </p>
           <div className="hero-actions">
@@ -160,7 +160,7 @@ function App() {
       </section>
 
       <section id="about" className="about section">
-        <div><p className="eyebrow">ABOUT SSV</p><h2>Code with a <em>creative edge.</em></h2></div>
+        <div><p className="eyebrow">ABOUT SSVPRASAD</p><h2>Code with a <em>creative edge.</em></h2></div>
         <div className="about-copy">
           <p>I enjoy working where engineering and design overlap. My projects span Django backends, PostgreSQL, AI APIs, React interfaces and 3D web experiences.</p>
           <p>I care about the details that make software feel finished: clear UX, secure sessions, responsive layouts, clean architecture and deployment that actually works.</p>
@@ -179,7 +179,7 @@ function App() {
         </div>
       </section>
 
-      <footer><span>© 2026 SSV</span><span>FULL-STACK · AI · CREATIVE WEB</span><a href="#top">BACK TO TOP ↑</a></footer>
+      <footer><span>© 2026 SSVPrasad</span><span>FULL-STACK · AI · CREATIVE WEB</span><a href="#top">BACK TO TOP ↑</a></footer>
     </main>
   );
 }
