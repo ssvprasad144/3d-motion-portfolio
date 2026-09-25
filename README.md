@@ -1,12 +1,35 @@
 # SSVPrasad — 3D Motion Portfolio
 
-A bright, interactive freelancer portfolio built with React, Vite, React Three Fiber and Three.js.
+> **Bright, interactive freelancer portfolio combining modern React UI with a live 3D/WebGL experience.**
+
+**Developer:** SSVPrasad  
+**Focus:** React · Three.js · React Three Fiber · Interactive UI
 
 ## Live Portfolio
 
 https://ssvprasad144.github.io/3d-motion-portfolio/
 
-## Run locally
+## What I Built
+
+- Bright glassmorphism-inspired freelancer interface
+- Interactive 3D centerpiece using React Three Fiber and Three.js
+- Responsive navigation and mobile layout
+- Project showcase with source and live links
+- Service-focused freelancer presentation
+- Contact flow for freelance inquiries
+- GitHub Pages deployment workflow
+
+## Stack
+
+| Area | Technologies |
+|---|---|
+| Frontend | React · Vite |
+| 3D / WebGL | Three.js · React Three Fiber · Drei |
+| Icons | Lucide React |
+| Styling | Responsive CSS |
+| Deployment | GitHub Pages |
+
+## Run Locally
 
 ```bash
 npm install
@@ -14,23 +37,6 @@ npm run dev
 ```
 
 Then open the local Vite URL.
-
-## Stack
-
-- React + Vite
-- Three.js + React Three Fiber + Drei
-- Lucide icons
-- Responsive CSS
-- Interactive 3D/WebGL experience
-
-## Focus
-
-- Full-stack development
-- AI integration
-- Backend engineering
-- Modern frontend
-- 3D / WebGL experiences
-- Freelancer-ready presentation
 
 ## Developer
 
