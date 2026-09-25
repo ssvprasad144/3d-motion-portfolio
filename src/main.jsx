@@ -1,222 +1,74 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Canvas } from "@react-three/fiber";
-import { Float, Environment, MeshTransmissionMaterial, OrbitControls, ContactShadows } from "@react-three/drei";
-import { ArrowDown, ArrowUpRight, Mail, Menu, X, Sparkles, Code2, Bot, Layers3, Workflow } from "lucide-react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Float, Environment, MeshTransmissionMaterial, ContactShadows } from "@react-three/drei";
+import { ArrowDown, ArrowUpRight, Mail, Menu, X, Sparkles, Code2, Bot, Layers3, Workflow, Database, Globe2, Github, Linkedin, Terminal, CheckCircle2 } from "lucide-react";
 import "./styles.css";
 
-const projects = [
-  {
-    n: "01",
-    title: "AI Business Automation",
-    tag: "AI · AUTOMATION · FULL-STACK",
-    text: "A full-stack automation dashboard for designing workflows, running safe demos, tracking executions and monitoring business automation pipelines.",
-    stack: "Django · PostgreSQL · React · OpenAI",
-    href: "https://github.com/ssvprasad144/AI-Business-Automation-Dashboard",
-    live: "https://ai-business-automation-frontend.onrender.com"
-  },
-  {
-    n: "02",
-    title: "CareerInnTech",
-    tag: "FULL-STACK · AI",
-    text: "A career platform combining Django, PostgreSQL and AI-powered interview workflows with authentication and production-focused backend architecture.",
-    stack: "Django · PostgreSQL · OpenAI",
-    href: "https://github.com/ssvprasad144/CareerInnTech",
-    live: "https://careerinntech.onrender.com"
-  },
-  {
-    n: "03",
-    title: "AI Interview",
-    tag: "AI · DJANGO · VOICE",
-    text: "A voice-first AI mock-interview product with session-based interview flows, AI responses, feedback and speech-oriented interaction.",
-    stack: "Python · Django · OpenAI",
-    href: "https://github.com/ssvprasad144/AI_interview"
-  },
-  {
-    n: "04",
-    title: "3D Motion Portfolio",
-    tag: "REACT · WEBGL",
-    text: "This portfolio itself: a bright, interactive 3D experience built with React, Three.js and React Three Fiber.",
-    stack: "React · Three.js · Vite",
-    href: "https://github.com/ssvprasad144/3d-motion-portfolio",
-    live: "https://ssvprasad144.github.io/3d-motion-portfolio/"
-  }
+const projects=[
+ {n:"01",title:"AI Business Automation",tag:"AI · AUTOMATION · FULL-STACK",text:"A full-stack automation dashboard for designing workflows, running safe demos, tracking executions and monitoring business automation pipelines.",stack:"Django · PostgreSQL · React · OpenAI",href:"https://github.com/ssvprasad144/AI-Business-Automation-Dashboard",live:"https://ai-business-automation-frontend.onrender.com",icon:Workflow,flow:["Business process","AI workflow","Execution","Observability"]},
+ {n:"02",title:"CareerInnTech",tag:"FULL-STACK · AI",text:"A career platform combining Django, PostgreSQL and AI-powered interview workflows with authentication and production-focused backend architecture.",stack:"Django · PostgreSQL · OpenAI",href:"https://github.com/ssvprasad144/CareerInnTech",live:"https://careerinntech.onrender.com",icon:Layers3,flow:["Profile","AI interview","Insights","Career tools"]},
+ {n:"03",title:"AI Interview",tag:"AI · DJANGO · VOICE",text:"A voice-first AI mock-interview product with session-based interview flows, AI responses, feedback and speech-oriented interaction.",stack:"Python · Django · OpenAI",href:"https://github.com/ssvprasad144/AI_interview",icon:Bot,flow:["Question","Voice input","AI analysis","Feedback"]},
+ {n:"04",title:"3D Motion Portfolio",tag:"REACT · WEBGL",text:"This portfolio: an interactive 3D experience built with React, Three.js and React Three Fiber, designed around motion and engineering.",stack:"React · Three.js · Vite",href:"https://github.com/ssvprasad144/3d-motion-portfolio",live:"https://ssvprasad144.github.io/3d-motion-portfolio/",icon:Globe2,flow:["React","WebGL","Motion","Experience"]}
 ];
 
-function Orb() {
-  return (
-    <Float speed={1.4} rotationIntensity={0.75} floatIntensity={1.25}>
-      <mesh rotation={[0.2, 0.45, 0]}>
-        <icosahedronGeometry args={[1.65, 5]} />
-        <MeshTransmissionMaterial
-          backside
-          thickness={1.1}
-          roughness={0.08}
-          transmission={1}
-          chromaticAberration={0.12}
-          anisotropy={0.45}
-          distortion={0.35}
-          distortionScale={0.45}
-          temporalDistortion={0.16}
-          color="#b9a7ff"
-        />
-      </mesh>
-    </Float>
-  );
+function Orb(){
+ const ref=React.useRef();
+ useFrame((state)=>{if(ref.current){ref.current.rotation.x=state.clock.elapsedTime*.08;ref.current.rotation.y=state.clock.elapsedTime*.13;}});
+ return <Float speed={1.3} rotationIntensity={.45} floatIntensity={1.1}><mesh ref={ref}><icosahedronGeometry args={[1.62,5]}/><MeshTransmissionMaterial backside thickness={1.05} roughness={.07} transmission={1} chromaticAberration={.1} anisotropy={.45} distortion={.3} distortionScale={.4} temporalDistortion={.12} color="#b7a5ff"/></mesh></Float>;
 }
+function Scene(){return <Canvas camera={{position:[0,0,5],fov:43}} dpr={[1,1.7]} gl={{antialias:true}}><ambientLight intensity={1.15}/><directionalLight position={[4,4,5]} intensity={4.5}/><pointLight position={[-4,-2,3]} intensity={7} color="#9274ff"/><pointLight position={[3,-3,1]} intensity={5} color="#49dbea"/><Suspense fallback={null}><Orb/><Environment preset="city"/><ContactShadows position={[0,-2.1,0]} opacity={.18} scale={6} blur={2.5}/></Suspense></Canvas>}
 
-function Scene() {
-  return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 43 }} dpr={[1, 1.8]} gl={{ antialias: true }}>
-      <ambientLight intensity={1.2} />
-      <directionalLight position={[4, 4, 5]} intensity={5} />
-      <pointLight position={[-4, -2, 3]} intensity={8} color="#9b7cff" />
-      <pointLight position={[3, -3, 1]} intensity={6} color="#55e7ff" />
-      <Suspense fallback={null}>
-        <Orb />
-        <Environment preset="city" />
-        <ContactShadows position={[0, -2.1, 0]} opacity={0.2} scale={6} blur={2.5} />
-      </Suspense>
-      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.65} />
-    </Canvas>
-  );
+function Reveal({children,className=""}){const [show,setShow]=useState(false);const ref=React.useRef();useEffect(()=>{const el=ref.current;if(!el)return;const obs=new IntersectionObserver(([e])=>{if(e.isIntersecting){setShow(true);obs.disconnect()}},{threshold:.12});obs.observe(el);return()=>obs.disconnect()},[]);return <div ref={ref} className={"reveal "+(show?"visible ":"")+className}>{children}</div>}
+
+function App(){
+ const [open,setOpen]=useState(false); const [scrolled,setScrolled]=useState(false);
+ useEffect(()=>{const f=()=>setScrolled(window.scrollY>40);window.addEventListener("scroll",f,{passive:true});f();return()=>window.removeEventListener("scroll",f)},[]);
+ const close=()=>setOpen(false);
+ return <main>
+  <div className="grid-bg"/><div className="ambient ambient-one"/><div className="ambient ambient-two"/>
+  <nav className={"nav "+(scrolled?"scrolled":"")}>
+   <a className="brand" href="#top">SSV<span>Prasad</span><i>.</i></a>
+   <div className={open?"links open":"links"}><a href="#work" onClick={close}>Work</a><a href="#services" onClick={close}>Services</a><a href="#engineering" onClick={close}>Engineering</a><a href="#about" onClick={close}>About</a><a href="#resume" onClick={close}>Resume</a></div>
+   <a className="nav-cta" href="#contact">Let's talk <ArrowUpRight size={14}/></a><button className="menu" onClick={()=>setOpen(!open)} aria-label="Toggle menu">{open?<X/>:<Menu/>}</button>
+  </nav>
+
+  <section id="top" className="hero">
+   <div className="hero-copy">
+    <div className="availability"><span/> AVAILABLE FOR FREELANCE · INTERNSHIPS</div>
+    <p className="eyebrow">FULL-STACK · AI · AUTOMATION · CREATIVE WEB</p>
+    <h1>I build <em>intelligent</em><br/>digital products.</h1>
+    <p className="lede">I'm SSVPrasad — a developer focused on full-stack products, AI integrations, business automation and immersive web experiences. I turn ideas into fast, polished and deployable software.</p>
+    <div className="hero-actions"><a className="primary" href="#work">View my work <ArrowDown size={16}/></a><a className="secondary" href="#contact">Let's work together <ArrowUpRight size={16}/></a></div>
+    <div className="hero-proof"><span><Code2/> Full-stack</span><span><Bot/> AI integration</span><span><Workflow/> Automation</span><span><Sparkles/> 3D / motion</span></div>
+   </div>
+   <div className="orb-wrap"><div className="orb"><Scene/></div><div className="orb-ring ring-one"/><div className="orb-ring ring-two"/><span className="orb-label">INTERACTIVE 3D · MOVE YOUR CURSOR</span><div className="orb-card"><span>BUILD / SHIP</span><strong>01</strong></div></div>
+  </section>
+
+  <section className="status-strip"><div><span className="live-dot"/> Available for new opportunities</div><div>FULL-STACK</div><div>AI / ML</div><div>AUTOMATION</div><div>CREATIVE WEB</div></section>
+
+  <Reveal><section id="work" className="section work">
+   <div className="section-head"><div><p className="eyebrow">SELECTED WORK</p><h2>Projects with <em>purpose.</em></h2></div><p className="count">04 BUILDS · 01 CASE STUDY</p></div>
+   <div className="featured-project"><div className="featured-visual"><div className="window-bar"><i/><i/><i/><span>automation-dashboard</span></div><div className="workflow-preview">{projects[0].flow.map((x,i)=><React.Fragment key={x}><div className={"preview-node "+(i===1?"accent":"")}><span>0{i+1}</span><b>{x}</b></div>{i<projects[0].flow.length-1&&<span className="preview-arrow">→</span>}</React.Fragment>)}</div><div className="preview-footer"><span>React · Django · PostgreSQL</span><span>● sandbox execution</span></div></div><div className="featured-copy"><p className="eyebrow">01 · FEATURED BUILD</p><h3>AI Business<br/><em>Automation</em></h3><p>A practical automation platform for defining workflows, running safe demonstrations, tracking executions and observing business process pipelines.</p><div className="feature-meta"><span>AI</span><span>WORKFLOW ENGINE</span><span>OBSERVABILITY</span></div><div className="project-links"><a href={projects[0].href} target="_blank" rel="noreferrer">GitHub <Github size={14}/></a><a className="filled" href={projects[0].live} target="_blank" rel="noreferrer">Open live demo <ArrowUpRight size={14}/></a></div></div></div>
+   <div className="project-grid">{projects.slice(1).map(p=><article className="project" key={p.n}><div className="project-top"><span>{p.n}</span><span>{p.tag}</span></div><div className="project-icon"><p.icon/></div><h3>{p.title}</h3><p className="desc">{p.text}</p><div className="mini-flow">{p.flow.map((x,i)=><React.Fragment key={x}><span>{x}</span>{i<p.flow.length-1&&<b>→</b>}</React.Fragment>)}</div><p className="stack">{p.stack}</p><div className="project-links"><a href={p.href} target="_blank" rel="noreferrer">Source <Code2 size={14}/></a>{p.live&&<a href={p.live} target="_blank" rel="noreferrer">Live <ArrowUpRight size={14}/></a>}</div></article>)}</div>
+  </section></Reveal>
+
+  <Reveal><section className="case-study section" id="case-study"><div className="section-head"><div><p className="eyebrow">AUTOMATION CASE STUDY</p><h2>From process to <em>pipeline.</em></h2></div></div><div className="case-grid"><div className="case-copy"><p><strong>01 · THE PROBLEM</strong><br/>Repetitive operational processes often involve collecting information, applying logic, calling services and recording outcomes across disconnected tools.</p><p><strong>02 · THE SOLUTION</strong><br/>A sandboxed AI Business Automation Dashboard that models workflows, executes ordered steps, records results and exposes activity for monitoring.</p><div className="case-flow"><span>Business Process</span><b>→</b><span>Workflow Builder</span><b>→</b><span>Execution Engine</span><b>→</b><span>AI / APIs</span><b>→</b><span>Logs</span></div></div><div className="case-card"><p className="eyebrow">ENGINEERING STACK</p><h3>Django + PostgreSQL + React + OpenAI</h3><p>Workflow definitions, ordered action steps, execution history, activity monitoring and safe demonstrations for lead qualification, support, extraction and message generation.</p><a href="https://ai-business-automation-frontend.onrender.com" target="_blank" rel="noreferrer">Open demo <ArrowUpRight size={14}/></a></div></div></section></Reveal>
+
+  <Reveal><section id="services" className="services section"><div className="section-head"><div><p className="eyebrow">WHAT I BUILD</p><h2>From idea to <em>launch.</em></h2></div></div><div className="service-grid"><Service n="01" icon={Code2} title="AI Products" text="Intelligent applications and product features powered by AI APIs and practical workflows."/><Service n="02" icon={Bot} title="Automation" text="Business workflow pipelines, webhooks and integrations designed around repetitive processes."/><Service n="03" icon={Database} title="Full-Stack Systems" text="Responsive interfaces, APIs, databases and backend architecture built for real requirements."/><Service n="04" icon={Layers3} title="Interactive Web" text="Modern React interfaces, motion systems and 3D/WebGL experiences that feel memorable."/></div></section></Reveal>
+
+  <Reveal><section id="engineering" className="engineering section"><div className="section-head"><div><p className="eyebrow">ENGINEERING</p><h2>The stack behind <em>the work.</em></h2></div></div><div className="engineering-grid"><div className="stack-panel"><StackGroup title="Frontend" items="React,Vite,JavaScript,Three.js,React Three Fiber"/><StackGroup title="Backend" items="Python,Django,REST APIs"/><StackGroup title="Data" items="PostgreSQL,SQLite"/><StackGroup title="AI" items="OpenAI,AI workflows,Voice AI"/><StackGroup title="Infrastructure" items="GitHub,Render,Linux,Deployment"/></div><div className="terminal"><div className="terminal-head"><span>ssvprasad@portfolio</span><span>● ● ●</span></div><div className="terminal-body"><p><i>$</i> whoami</p><strong>Full-stack developer & AI engineer</strong><p><i>$</i> projects --featured</p><strong>04</strong><p><i>$</i> focus --primary</p><strong>AI / AUTOMATION / WEB</strong><p><i>$</i> status</p><strong className="terminal-live">● Available</strong><p><i>$</i> ship --next</p><strong>Build something useful.</strong><span className="cursor"/></div></div></div></section></Reveal>
+
+  <Reveal><section className="thinking section"><div><p className="eyebrow">HOW I THINK</p><h2>From idea → <em>product.</em></h2></div><div className="thinking-grid">{["Understand","Design","Build","Integrate","Deploy"].map((x,i)=><div key={x}><span>0{i+1}</span><div className="think-line"/><h3>{x}</h3><p>{["Clarify the problem, users and desired outcome.","Choose the architecture, data model and interfaces.","Build the product with clean, maintainable components.","Connect AI, APIs, workflows and external systems safely.","Test, monitor and ship a reliable production experience."][i]}</p></div>)}</div></section></Reveal>
+
+  <Reveal><section className="about section" id="about"><div><p className="eyebrow">ABOUT SSVPRASAD</p><h2>Code with a <em>creative edge.</em></h2></div><div className="about-copy"><p>I enjoy working where engineering, AI and design overlap. My projects span Django backends, PostgreSQL, AI APIs, automation workflows, React interfaces and 3D web experiences.</p><p>I care about the details that make software feel finished: clear UX, secure sessions, responsive layouts, clean architecture and deployment that actually works.</p><div className="mini-stats"><div><strong>04</strong><span>featured builds</span></div><div><strong>AI</strong><span>product focus</span></div><div><strong>AUTO</strong><span>workflow focus</span></div></div></div></section></Reveal>
+
+  <Reveal><section id="resume" className="resume section"><div className="section-head"><div><p className="eyebrow">ENGINEERING PROFILE</p><h2>Built for <em>real work.</em></h2></div></div><div className="resume-grid"><div><p>My focus spans data structures and algorithms, backend architecture, database design, API development, AI applications, business automation and deployment.</p><p>For recruiters and clients, the projects above show progression from full-stack applications to AI-powered systems and automation infrastructure.</p></div><div className="profile-card"><p className="eyebrow">TECHNICAL PROFILE</p><div className="profile-tags"><span>DSA</span><span>Backend</span><span>Databases</span><span>API Design</span><span>AI Apps</span><span>Automation</span><span>DevOps</span><span>System Design</span></div><a href="https://github.com/ssvprasad144" target="_blank" rel="noreferrer">View GitHub <ArrowUpRight size={14}/></a></div></div></section></Reveal>
+
+  <Reveal><section id="contact" className="contact section"><p className="eyebrow">HAVE A PROBLEM WORTH BUILDING?</p><h2>Let's turn the idea into <em>something real.</em></h2><p className="contact-sub">Tell me what you're building, what problem you want to solve, or what you want improved.</p><div className="contact-row"><a className="email" href="mailto:ssvprasad144@gmail.com">ssvprasad144@gmail.com <ArrowUpRight/></a><a className="social" href="https://github.com/ssvprasad144" target="_blank" rel="noreferrer"><Github/></a><a className="social" href="mailto:ssvprasad144@gmail.com"><Mail/></a></div></section></Reveal>
+  <footer><span>© 2026 SSVPrasad</span><span>FULL-STACK · AI · AUTOMATION · CREATIVE WEB</span><a href="#top">BACK TO TOP ↑</a></footer>
+ </main>
 }
-
-function App() {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <main>
-      <div className="ambient ambient-one" />
-      <div className="ambient ambient-two" />
-
-      <nav className="nav">
-        <a className="brand" href="#top">SSVPrasad<span>.</span></a>
-        <div className={open ? "links open" : "links"}>
-          <a href="#work" onClick={() => setOpen(false)}>Work</a>
-          <a href="#services" onClick={() => setOpen(false)}>Services</a>
-          <a href="#about" onClick={() => setOpen(false)}>About</a><a href="#resume" onClick={() => setOpen(false)}>Resume</a>
-          <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
-        </div>
-        <a className="nav-cta" href="#contact">Let's talk <ArrowUpRight size={14} /></a>
-        <button className="menu" onClick={() => setOpen(!open)} aria-label="Toggle menu">
-          {open ? <X /> : <Menu />}
-        </button>
-      </nav>
-
-      <section id="top" className="hero">
-        <div className="hero-copy">
-          <div className="availability"><span /> AVAILABLE FOR FREELANCE</div>
-          <p className="eyebrow">FULL-STACK · AI · AUTOMATION · CREATIVE WEB</p>
-          <h1>I build digital <em>experiences</em> that move.</h1>
-          <p className="lede">
-            I'm SSVPrasad — a developer focused on full-stack products, AI integrations, business automation and immersive web experiences.
-            I turn ideas into fast, polished and deployable software.
-          </p>
-          <div className="hero-actions">
-            <a className="primary" href="#work">View my work <ArrowDown size={16} /></a>
-            <a className="secondary" href="#contact">Start a project <ArrowUpRight size={16} /></a>
-          </div>
-          <div className="hero-proof">
-            <span><Code2 /> Full-stack</span>
-            <span><Bot /> AI integration</span>
-            <span><Workflow /> Automation</span>
-            <span><Sparkles /> 3D / motion</span>
-          </div>
-        </div>
-
-        <div className="orb-wrap">
-          <div className="orb">
-            <Scene />
-          </div>
-          <div className="orb-ring ring-one" />
-          <div className="orb-ring ring-two" />
-          <span className="orb-label">INTERACTIVE 3D · DRAG TO ROTATE</span>
-          <div className="orb-card">
-            <span>BUILD / SHIP</span>
-            <strong>01</strong>
-          </div>
-        </div>
-      </section>
-
-      <section id="work" className="section work">
-        <div className="section-head">
-          <div><p className="eyebrow">SELECTED WORK</p><h2>Projects with <em>purpose.</em></h2></div>
-          <p className="count">04 PROJECTS · 01 CASE STUDY</p>
-        </div>
-        <div className="project-grid">
-          {projects.map((p) => (
-            <article className="project" key={p.n}>
-              <div className="project-top"><span>{p.n}</span><span>{p.tag}</span></div>
-              <div className="project-icon">{p.n === "01" ? <Workflow /> : <Layers3 />}</div>
-              <h3>{p.title}</h3>
-              <p className="desc">{p.text}</p>
-              <p className="stack">{p.stack}</p>
-              <div className="project-links">
-                <a href={p.href} target="_blank" rel="noreferrer">Source <Code2 size={15} /></a>
-                {p.live && <a href={p.live} target="_blank" rel="noreferrer">Live <ArrowUpRight size={15} /></a>}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="case-study section" id="case-study">
-        <div className="section-head"><div><p className="eyebrow">AUTOMATION CASE STUDY</p><h2>From process to <em>pipeline.</em></h2></div></div>
-        <div className="case-grid">
-          <div className="case-copy">
-            <p><strong>Business problem:</strong> repetitive operational processes often involve collecting information, applying logic, calling services and recording outcomes across disconnected tools.</p>
-            <p><strong>What I built:</strong> a sandboxed AI Business Automation Dashboard that models workflows, executes ordered steps, records results and exposes activity for monitoring.</p>
-            <div className="case-flow">
-              <span>Business Process</span><b className="case-arrow">→</b><span>Workflow Builder</span><b className="case-arrow">→</b><span>Execution Engine</span><b className="case-arrow">→</b><span>AI / APIs</span><b className="case-arrow">→</b><span>Logs</span>
-            </div>
-          </div>
-          <div className="case-card">
-            <p className="eyebrow">ENGINEERING STACK</p>
-            <h3>Django + PostgreSQL + React + OpenAI</h3>
-            <p>Includes workflow definitions, ordered action steps, execution history, activity monitoring and safe demonstrations for lead qualification, support, extraction and message generation.</p>
-            <a href="https://ai-business-automation-frontend.onrender.com" target="_blank" rel="noreferrer">Open Demo <ArrowUpRight size={14} /></a>
-          </div>
-        </div>
-      </section>
-
-      <section id="services" className="services section">
-        <div className="section-head"><div><p className="eyebrow">WHAT I CAN BUILD</p><h2>From idea to <em>launch.</em></h2></div></div>
-        <div className="service-grid">
-          <div><span>01</span><Code2 /><h3>Web Development</h3><p>Responsive websites, dashboards and full-stack applications built around real business requirements.</p></div>
-          <div><span>02</span><Bot /><h3>AI Integration</h3><p>AI-powered features, API integrations and intelligent workflows inside existing or new products.</p></div>
-          <div><span>03</span><Workflow /><h3>Business Automation</h3><p>Workflow pipelines, AI-assisted processes, webhooks and software integrations designed to reduce repetitive work.</p></div>
-          <div><span>04</span><Layers3 /><h3>Interactive Experiences</h3><p>Modern React interfaces, motion systems and 3D/WebGL experiences that feel memorable.</p></div>
-        </div>
-      </section>
-
-      <section className="tech section"><p className="eyebrow">TECHNOLOGY</p><div className="tech-list">{["Python","Django","REST APIs","React","Vite","PostgreSQL","OpenAI","Three.js","React Three Fiber","GitHub","Render","Linux"].map((t)=><span key={t}>{t}</span>)}</div></section>
-
-      <section id="about" className="about section">
-        <div><p className="eyebrow">ABOUT SSVPRASAD</p><h2>Code with a <em>creative edge.</em></h2></div>
-        <div className="about-copy">
-          <p>I enjoy working where engineering, AI and design overlap. My projects span Django backends, PostgreSQL, AI APIs, automation workflows, React interfaces and 3D web experiences.</p>
-          <p>I care about the details that make software feel finished: clear UX, secure sessions, responsive layouts, clean architecture and deployment that actually works.</p>
-          <div className="mini-stats"><div><strong>4</strong><span>featured builds</span></div><div><strong>AI</strong><span>product focus</span></div><div><strong>AUTO</strong><span>workflow focus</span></div></div>
-        </div>
-      </section>
-
-      <section id="resume" className="section" style={{background:"#f7f6ff",paddingBottom:"70px"}}><div className="section-head"><div><p className="eyebrow">ENGINEERING PROFILE</p><h2>Built for <em>real work.</em></h2></div></div><div className="case-grid"><div className="case-copy"><p>My focus spans data structures and algorithms, backend architecture, database design, API development, AI applications, business automation and deployment.</p><p>For recruiters and clients, the portfolio projects above show the progression from full-stack applications to AI-powered systems and automation infrastructure.</p></div><div className="case-card" style={{background:"#eeecf8",color:"#17151f",boxShadow:"none"}}><p className="eyebrow">NEXT STEP</p><h3>Want the full technical profile?</h3><p style={{color:"#676170"}}>View the code, architecture and iterative development history on GitHub.</p><a href="https://github.com/ssvprasad144" target="_blank" rel="noreferrer">View GitHub <ArrowUpRight size={14} /></a></div></div></section>
-
-      <section id="contact" className="contact section">
-        <p className="eyebrow">HAVE A PROJECT?</p>
-        <h2>Let's build something <em>great.</em></h2>
-        <p className="contact-sub">Tell me what you're building, what problem you want to solve, or what you want improved.</p>
-        <div className="contact-row">
-          <a className="email" href="mailto:ssvprasad144@gmail.com">ssvprasad144@gmail.com <ArrowUpRight /></a>
-          <a className="social" href="https://github.com/ssvprasad144" target="_blank" rel="noreferrer"><Code2 /></a>
-          <a className="social" href="mailto:ssvprasad144@gmail.com"><Mail /></a>
-        </div>
-      </section>
-
-      <footer><span>© 2026 SSVPrasad</span><span>FULL-STACK · AI · AUTOMATION · CREATIVE WEB</span><a href="#top">BACK TO TOP ↑</a></footer>
-    </main>
-  );
-}
-
-createRoot(document.getElementById("root")).render(<App />);
+function Service({n,icon:Icon,title,text}){return <div><span>{n}</span><Icon/><h3>{title}</h3><p>{text}</p></div>}
+function StackGroup({title,items}){return <div className="stack-group"><h3>{title}</h3><div>{items.split(",").map(x=><span key={x}>{x}</span>)}</div></div>}
+createRoot(document.getElementById("root")).render(<App/>);
