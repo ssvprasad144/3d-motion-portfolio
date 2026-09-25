@@ -1,6 +1,10 @@
-# 3D Motion Portfolio
+# SSVPrasad — 3D Motion Portfolio
 
-An immersive portfolio starter built with React, Vite, React Three Fiber, Three.js and motion-first UI patterns.
+A bright, interactive freelancer portfolio built with React, Vite, React Three Fiber and Three.js.
+
+## Live Portfolio
+
+https://ssvprasad144.github.io/3d-motion-portfolio/
 
 ## Run locally
 
@@ -15,10 +19,23 @@ Then open the local Vite URL.
 
 - React + Vite
 - Three.js + React Three Fiber + Drei
-- GSAP-ready motion architecture
 - Lucide icons
 - Responsive CSS
+- Interactive 3D/WebGL experience
 
-## Direction
+## Focus
 
-The visual system uses a dark editorial layout, interactive glass 3D object, oversized typography, scroll sections and restrained micro-interactions. The next layer can add GSAP timelines, shader effects, custom 3D models and project-specific scenes.
+- Full-stack development
+- AI integration
+- Backend engineering
+- Modern frontend
+- 3D / WebGL experiences
+- Freelancer-ready presentation
+
+## Developer
+
+**SSVPrasad**  
+Full-Stack Developer · AI Integration · Creative Web
+
+GitHub: https://github.com/ssvprasad144  
+Email: ssvprasad144@gmail.com
