@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
 import { Float, Environment, MeshTransmissionMaterial, OrbitControls, ContactShadows } from "@react-three/drei";
-import { ArrowDown, ArrowUpRight, Github, Mail, Menu, X, Sparkles, Code2, Bot, Layers3 } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Mail, Menu, X, Sparkles, Code2, Bot, Layers3 } from "lucide-react";
 import "./styles.css";
 
 const projects = [
@@ -142,7 +142,7 @@ function App() {
               <p className="desc">{p.text}</p>
               <p className="stack">{p.stack}</p>
               <div className="project-links">
-                <a href={p.href} target="_blank" rel="noreferrer">Source <Github size={15} /></a>
+                <a href={p.href} target="_blank" rel="noreferrer">Source <Code2 size={15} /></a>
                 {p.live && <a href={p.live} target="_blank" rel="noreferrer">Live <ArrowUpRight size={15} /></a>}
               </div>
             </article>
@@ -174,7 +174,7 @@ function App() {
         <p className="contact-sub">Tell me what you're building, what problem you want to solve, or what you want improved.</p>
         <div className="contact-row">
           <a className="email" href="mailto:ssvprasad144@gmail.com">ssvprasad144@gmail.com <ArrowUpRight /></a>
-          <a className="social" href="https://github.com/ssvprasad144" target="_blank" rel="noreferrer"><Github /></a>
+          <a className="social" href="https://github.com/ssvprasad144" target="_blank" rel="noreferrer"><Code2 /></a>
           <a className="social" href="mailto:ssvprasad144@gmail.com"><Mail /></a>
         </div>
       </section>
