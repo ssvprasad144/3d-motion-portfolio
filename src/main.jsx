@@ -17,6 +17,16 @@ function Orb(){
  useFrame((state)=>{if(ref.current){ref.current.rotation.x=state.clock.elapsedTime*.08;ref.current.rotation.y=state.clock.elapsedTime*.13;}});
  return <Float speed={1.3} rotationIntensity={.45} floatIntensity={1.1}><mesh ref={ref}><icosahedronGeometry args={[1.62,5]}/><MeshTransmissionMaterial backside thickness={1.05} roughness={.07} transmission={1} chromaticAberration={.1} anisotropy={.45} distortion={.3} distortionScale={.4} temporalDistortion={.12} color="#b7a5ff"/></mesh></Float>;
 }
+function StaticOrb(){return <div role="img" aria-label="Decorative gradient orb (WebGL fallback)" style={{width:"72%",aspectRatio:"1",margin:"auto",borderRadius:"50%",background:"radial-gradient(circle at 30% 25%, #fff 0%, #e9e2ff 12%, #a6a0f5 36%, #6c53dc 64%, #43c9dd 92%)",boxShadow:"0 28px 80px rgba(112,87,232,.28), inset 0 0 35px rgba(255,255,255,.65)"}}/>}
+class SceneErrorBoundary extends React.Component {
+ constructor(props){super(props);this.state={failed:false};}
+ static getDerivedStateFromError(){return {failed:true};}
+ render(){return this.state.failed?<StaticOrb/>:this.props.children;}
+}
+function SafeScene(){
+ const [supported]=useState(()=>{try{const canvas=document.createElement("canvas");return !!canvas.getContext("webgl2");}catch{return false;}});
+ return supported?<SceneErrorBoundary><Scene/></SceneErrorBoundary>:<StaticOrb/>;
+}
 function Scene(){return <Canvas camera={{position:[0,0,5],fov:43}} dpr={[1,1.7]} gl={{antialias:true}}><ambientLight intensity={1.15}/><directionalLight position={[4,4,5]} intensity={4.5}/><pointLight position={[-4,-2,3]} intensity={7} color="#9274ff"/><pointLight position={[3,-3,1]} intensity={5} color="#49dbea"/><Suspense fallback={null}><Orb/><Environment preset="city"/><ContactShadows position={[0,-2.1,0]} opacity={.18} scale={6} blur={2.5}/></Suspense></Canvas>}
 
 function Reveal({children,className=""}){const [show,setShow]=useState(false);const ref=React.useRef();useEffect(()=>{const el=ref.current;if(!el)return;const obs=new IntersectionObserver(([e])=>{if(e.isIntersecting){setShow(true);obs.disconnect()}},{threshold:.12});obs.observe(el);return()=>obs.disconnect()},[]);return <div ref={ref} className={"reveal "+(show?"visible ":"")+className}>{children}</div>}
@@ -42,7 +52,7 @@ function App(){
     <div className="hero-actions"><a className="primary" href="#work">View my work <ArrowDown size={16}/></a><a className="secondary" href="#contact">Let's work together <ArrowUpRight size={16}/></a></div>
     <div className="hero-proof"><span><Code2/> Full-stack</span><span><Bot/> AI integration</span><span><Workflow/> Automation</span><span><Sparkles/> 3D / motion</span></div>
    </div>
-   <div className="orb-wrap"><div className="orb"><Scene/></div><div className="orb-ring ring-one"/><div className="orb-ring ring-two"/><span className="orb-label">INTERACTIVE 3D · MOVE YOUR CURSOR</span><div className="orb-card"><span>BUILD / SHIP</span><strong>01</strong></div></div>
+   <div className="orb-wrap"><div className="orb"><SafeScene/></div><div className="orb-ring ring-one"/><div className="orb-ring ring-two"/><span className="orb-label">3D · VISUAL EXPERIENCE</span><div className="orb-card"><span>BUILD / SHIP</span><strong>01</strong></div></div>
   </section>
 
   <section className="status-strip"><div><span className="live-dot"/> Available for new opportunities</div><div>FULL-STACK</div><div>AI / ML</div><div>AUTOMATION</div><div>CREATIVE WEB</div></section>
